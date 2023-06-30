@@ -1,0 +1,528 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-material-remap-component/dist/aframe-material-remap-component.min.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden">
+    <div
+      id="text2"
+      style="position: absolute; font-weight: bold; top: 10%; left: 40%"
+    >
+      Pontuação: 0
+    </div>
+    <div id="text" style="position: absolute; top: 20%; left: 40%">
+      Distancia: N/A
+    </div>
+    <style>
+      div {
+        background-color: #000000;
+        color: FFFFFF;
+      }
+    </style>
+    <a-scene
+      vr-mode-ui="enabled: false;"
+      loading-screen="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+      id="scene"
+      onclick="playAudio()"
+      calculate-distance
+      embedded
+      gesture-detector
+    >
+      <a-assets>
+        <a-asset-item
+          id="cbjr"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/cbjr.gltf?v=1683315900696"
+        ></a-asset-item>
+        <a-asset-item
+          id="car"
+          src="https://cdn.glitch.me/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/asset.gltf?v=1683417107321"
+        ></a-asset-item>
+        <a-asset-item
+          id="trash_can"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/trashcan.gltf?v=1685394284082"
+        ></a-asset-item>
+        <a-asset-item
+          id="peixe"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/peixe.gltf?v=1685402589065"
+        ></a-asset-item>
+        <a-asset-item
+          id="garrafa"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/garrafa.gltf?v=1685402878452"
+        ></a-asset-item>
+        <a-asset-item
+          id="vidro"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/vidro.gltf?v=1685829287197"
+        ></a-asset-item>
+        <a-asset-item
+          id="lata"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/lata.gltf?v=1685402885332"
+        ></a-asset-item>
+        <a-asset-item
+          id="lata_comida"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/lata_metal.gltf?v=1685829351929"
+        ></a-asset-item>
+        <a-asset-item
+          id="banana"
+          src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/banana.gltf?v=1685403117045"
+        ></a-asset-item>
+      </a-assets>
+
+      <a-marker
+        id="marker1"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/hiro.patt?v=1683125069630"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model"
+          scale="0.0061528104694694285 0.0061528104694694285 0.0061528104694694285"
+          calculate-distance
+          animation-mixer="loop: repeat"
+          gltf-model="#lata"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker2"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-inner-kanji.patt?v=1683850098252"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model6"
+          scale="0.6442052237354601 0.6442052237354601 0.6442052237354601"
+          calculate-distance
+          animation-mixer="loop: repeat"
+          gltf-model="#peixe"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker3"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/marker1.patt?v=1683120137317"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model2"
+          scale="0.009416442872107751 0.009416442872107751 0.009416442872107751"
+          animation-mixer="loop: repeat"
+          gltf-model="#vidro"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker4"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-marker.patt?v=1683746656917"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model3"
+          scale="9.548502590484153 9.548502590484153 9.548502590484153"
+          animation-mixer="loop: repeat"
+          gltf-model="#garrafa"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker5"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-a.patt?v=1683849468584"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model4"
+          scale="0.8021949526960776 0.8021949526960776 0.8021949526960776"
+          animation-mixer="loop: repeat"
+          gltf-model="#lata_comida"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker6"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-13.patt?v=1683849834148"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model5"
+          scale="1 1 1"
+          animation-mixer="loop: repeat"
+          gltf-model="#banana"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker
+        id="marker7"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-lixo_organico.patt?v=1685802612893"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model7"
+          scale="0.0034777057062064373 0.0034777057062064373 0.0034777057062064373"
+          animation-mixer="loop: repeat"
+          gltf-model="#trash_can"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        >
+        </a-entity>
+        <a-text
+          id="cylinderText1"
+          value="Lixo Organico"
+          align="center"
+          color="#000000"
+          position="0 -0.55 0.55"
+        >
+        </a-text>
+      </a-marker>
+
+      <a-marker
+        id="marker8"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-lixo_plastico.patt?v=1685803280386"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model8"
+          scale="0.0034777057062064373 0.0034777057062064373 0.0034777057062064373"
+          animation-mixer="loop: repeat"
+          gltf-model="#trash_can"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        >
+        </a-entity>
+        <a-text
+          id="cylinderText2"
+          value="Lixo Plastico"
+          align="center"
+          color="#000000"
+          position="0 -0.55 0.55"
+        >
+        </a-text>
+      </a-marker>
+
+      <a-marker
+        id="marker9"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-lixo_vidro.patt?v=1685803273094"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model9"
+          scale="0.0034777057062064373 0.0034777057062064373 0.0034777057062064373"
+          animation-mixer="loop: repeat"
+          gltf-model="#trash_can"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+          material-remap="color: blue"
+        >
+        </a-entity>
+        <a-text
+          id="cylinderText3"
+          value="Lixo Vidro"
+          align="center"
+          color="#000000"
+          position="0 -0.55 0.55"
+        >
+        </a-text>
+      </a-marker>
+
+      <a-marker
+        id="marker10"
+        type="pattern"
+        preset="custom"
+        url="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/pattern-lixo_metal.patt?v=1685803275469"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+        <a-entity
+          id="bowser-model10"
+          scale="0.0034777057062064373 0.0034777057062064373 0.0034777057062064373"
+          animation-mixer="loop: repeat"
+          gltf-model="#trash_can"
+          class="clickable"
+          gesture-handler="minScale: 0.25; maxScale: 10"
+        >
+        </a-entity>
+        <a-text
+          id="cylinderText4"
+          value="Lixo Metal"
+          align="center"
+          color="#000000"
+          position="0 -0.55 0.55"
+        >
+        </a-text>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+    <audio
+      id="audio"
+      src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/message-incoming-132126.mp3?v=1685562521171"
+    ></audio>
+    <audio
+      id="audio1"
+      src="https://cdn.glitch.global/dec13b0c-4dd0-4dc2-a2ad-a56eee843a44/videoplayback%20(1).3gp?v=1683314516620"
+    ></audio>
+    <script>
+      alert(
+        `Seja bem vindo! Seu objetivo é aproximar o resíduo ao lixo correto.\nPara isso coloque os dois marcadores a uma distância menor que 2cm.`
+      );
+      AFRAME.registerComponent("calculate-distance", {
+        init: function () {
+          var objetoA = document.querySelector("#marker1");
+          var objetoB = document.querySelector("#marker2");
+          var objetoC = document.querySelector("#marker3");
+          var objetoD = document.querySelector("#marker4");
+          var objetoE = document.querySelector("#marker5");
+          var objetoF = document.querySelector("#marker6");
+          var objeto = document.querySelector("#marker7");
+          var objeto2 = document.querySelector("#marker8");
+          var objeto3 = document.querySelector("#marker9");
+          var objeto4 = document.querySelector("#marker10");
+          var overlayText = document.getElementById("text");
+          var overlayText2 = document.getElementById("text2");
+          var pontuacao = 0;
+          var lastTime = 0;
+          var repeticao = 0;
+          var residuo = 0;
+          var lixo = 0;
+
+          function updateDistance() {
+            var currentTime = performance.now();
+            var deltaTime = currentTime - lastTime;
+
+            if (objeto.object3D.visible) {
+              lixeira = objeto;
+              lixo = 1;
+            } else if (objeto2.object3D.visible) {
+              lixeira = objeto2;
+              lixo = 2;
+            } else if (objeto3.object3D.visible) {
+              lixeira = objeto3;
+              lixo = 3;
+            } else if (objeto4.object3D.visible) {
+              lixeira = objeto4;
+              lixo = 4;
+            }
+
+            if (lixeira.object3D.visible && objetoA.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoA.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 4) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            } else if (lixeira.object3D.visible && objetoB.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoB.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 1) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            } else if (lixeira.object3D.visible && objetoC.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoC.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 3) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            } else if (lixeira.object3D.visible && objetoD.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoD.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 2) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            } else if (lixeira.object3D.visible && objetoE.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoE.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 4) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            } else if (lixeira.object3D.visible && objetoF.object3D.visible) {
+              const position1 = new THREE.Vector3();
+              const position2 = new THREE.Vector3();
+              lixeira.object3D.getWorldPosition(position1);
+              objetoF.object3D.getWorldPosition(position2);
+              const distance = position1.distanceTo(position2).toFixed(2);
+              overlayText.innerText = "Distancia: " + distance;
+              if (distance <= 2 && lixo === 1) {
+                if (repeticao === 0) {
+                  pontuacao++;
+                  document.getElementById("audio").play();
+                  overlayText2.innerText = "Pontuação: " + pontuacao;
+                  repeticao++;
+                }
+              } else if (repeticao > 0) {
+                repeticao = 0;
+              }
+            }
+
+            lastTime = currentTime;
+            requestAnimationFrame(updateDistance);
+          }
+
+          this.el.addEventListener("markerFound", function (event) {
+            var markerId = event.target.id;
+            if (markerId === "marker1") {
+              objetoA.setAttribute("visible", true);
+            } else if (markerId === "marker2") {
+              objetoB.setAttribute("visible", true);
+            } else if (markerId === "marker3") {
+              objetoC.setAttribute("visible", true);
+            } else if (markerId === "marker4") {
+              objetoD.setAttribute("visible", true);
+            } else if (markerId === "marker5") {
+              objetoE.setAttribute("visible", true);
+            } else if (markerId === "marker6") {
+              objetoF.setAttribute("visible", true);
+            } else if (markerId === "marker7") {
+              objeto.setAttribute("visible", true);
+              distance = 100;
+            } else if (markerId === "marker8") {
+              objeto2.setAttribute("visible", true);
+              distance = 100;
+            } else if (markerId === "marker9") {
+              objeto3.setAttribute("visible", true);
+              distance = 100;
+            } else if (markerId === "marker10") {
+              objeto4.setAttribute("visible", true);
+              distance = 100;
+            }
+
+            lastTime = performance.now();
+            requestAnimationFrame(updateDistance);
+          });
+
+          this.el.addEventListener("markerLost", function (event) {
+            var markerId = event.target.id;
+            if (markerId === "marker1") {
+              objetoA.setAttribute("visible", false);
+            } else if (markerId === "marker2") {
+              objetoB.setAttribute("visible", false);
+            } else if (markerId === "marker3") {
+              objetoC.setAttribute("visible", false);
+            } else if (markerId === "marker4") {
+              objetoD.setAttribute("visible", false);
+            } else if (markerId === "marker5") {
+              objetoE.setAttribute("visible", false);
+            } else if (markerId === "marker6") {
+              objetoF.setAttribute("visible", false);
+            } else if (markerId === "marker7") {
+              objeto.setAttribute("visible", false);
+            } else if (markerId === "marker8") {
+              objeto2.setAttribute("visible", false);
+            } else if (markerId === "marker9") {
+              objeto3.setAttribute("visible", false);
+            } else if (markerId === "marker10") {
+              objeto4.setAttribute("visible", false);
+            }
+            overlayText.innerText = "Distancia: N/A";
+          });
+        },
+      });
+    </script>
+  </body>
+</html>
